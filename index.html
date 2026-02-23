@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deprem Yardım Sistemi</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 1️⃣ BAŞLANGIÇ / MOD SEÇİM -->
+    <section id="mode-select" class="screen active">
+      <h1>Deprem Yardım</h1>
+
+      <button class="btn danger" onclick="selectMode('requester')">
+        🆘 Yardım İstiyorum
+      </button>
+
+      <button class="btn" onclick="selectMode('helper')">🤝 Yardımcıyım</button>
+      <button class="btn" onclick="location.href = 'firstaid.html'">
+        🩺 İlk Yardım
+      </button>
+      <p class="note">
+        Deprem anında en az veri kullanımı için tasarlanmıştır.
+      </p>
+    </section>
+
+    <!-- 2️⃣ YARDIM İSTEYEN MODU -->
+    <section id="requester-mode" class="screen">
+      <h2>İhtiyacını Seç</h2>
+
+      <div class="need-grid">
+        <button onclick="selectNeed('medical')">🩸 Yaralıyım</button>
+        <button onclick="selectNeed('trapped')">🧱 Enkaz Altındayım</button>
+        <button onclick="selectNeed('shelter')">🏠 Barınma</button>
+        <button onclick="selectNeed('food')">🍞 Gıda / Su</button>
+      </div>
+      <button class="btn danger" onclick="startVoiceCommand()">
+        🎙️ Sesle Yardım İste
+      </button>
+
+      <p id="voice-status"></p>
+      <button class="btn" onclick="sendBluetoothSignal()">
+        📡 Bluetooth ile Yakındakilere Bildir
+      </button>
+      <button class="btn danger" onclick="sendHelpRequest()">
+        KONUM GÖNDER & YARDIM İSTE
+      </button>
+
+      <p id="requester-status"></p>
+    </section>
+
+    <!-- 3️⃣ YARDIM BEKLEME EKRANI -->
+    <section id="waiting-screen" class="screen">
+      <h2>Yardım Talebin Alındı</h2>
+      <p>Lütfen bulunduğun yerde kal.</p>
+
+      <button class="btn" onclick="markHelped()">✔ Yardım Aldım</button>
+    </section>
+
+    <!-- 4️⃣ YARDIMCI MODU -->
+    <section id="helper-mode" class="screen">
+      <h2>Yakındaki Yardım Talepleri</h2>
+
+      <ul id="help-list">
+        <!-- JS ile doldurulacak -->
+        <li>
+          🩸 Yaralı – 120m
+          <button onclick="acceptHelp()">Gidiyorum</button>
+        </li>
+      </ul>
+
+      <button class="btn" onclick="refreshList()">🔄 Listeyi Yenile</button>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
+  </body>
+</html>

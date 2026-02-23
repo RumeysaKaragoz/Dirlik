@@ -1,0 +1,144 @@
+/* =========================
+   GLOBAL RESET (HAFİF)
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   TEMEL GÖVDE
+========================= */
+body {
+  background-color: #000;      /* Saf siyah – OLED + pil dostu */
+  color: #fff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+  padding: 16px;
+}
+
+/* =========================
+   EKRAN KONTROLÜ
+========================= */
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* =========================
+   BAŞLIKLAR
+========================= */
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 26px;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+/* =========================
+   BUTONLAR – EN KRİTİK
+========================= */
+button {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 12px;
+
+  font-size: 20px;
+  font-weight: 600;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #1a1a1a;
+  color: #fff;
+
+  touch-action: manipulation; /* Çift dokunma gecikmesi yok */
+}
+
+button:active {
+  background-color: #333;
+}
+
+/* ACİL BUTON */
+button.danger {
+  background-color: #c40000;
+}
+
+button.danger:active {
+  background-color: #900000;
+}
+
+/* =========================
+   İHTİYAÇ SEÇİM GRID
+========================= */
+.need-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.need-grid button {
+  font-size: 18px;
+  padding: 18px;
+}
+
+/* =========================
+   METİN BİLGİ
+========================= */
+p {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+.note {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* =========================
+   LİSTE (YARDIMCI MODU)
+========================= */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background-color: #111;
+  padding: 14px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+}
+
+li button {
+  width: auto;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+/* =========================
+   ERİŞİLEBİLİRLİK
+========================= */
+button:focus {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
