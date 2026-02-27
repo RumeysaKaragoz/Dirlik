@@ -1,144 +1,270 @@
-/* =========================
-   GLOBAL RESET (HAFİF)
-========================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* 1. DEĞİŞKENLER VE TEMEL AYARLAR */
+:root {
+    --bg-color: #000000;
+    --card-bg: #111111;
+    --text-color: #ffffff;
+    --urgent: #ff0000;
 }
 
-/* =========================
-   TEMEL GÖVDE
-========================= */
 body {
-  background-color: #000;      /* Saf siyah – OLED + pil dostu */
-  color: #fff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  font-size: 18px;
-  line-height: 1.4;
-  padding: 16px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0; 
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
 }
 
-/* =========================
-   EKRAN KONTROLÜ
-========================= */
+/* 2. EKRAN YÖNETİMİ VE ANİMASYONLAR */
 .screen {
-  display: none;
+    display: none;
+    width: 100%;
+    max-width: 600px; 
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #0a0a0a;
 }
 
 .screen.active {
-  display: block;
+    display: block;
+    animation: fadeIn 0.3s forwards;
 }
 
-/* =========================
-   BAŞLIKLAR
-========================= */
-h1, h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.hidden { display: none !important; }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-h1 {
-  font-size: 26px;
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
 }
 
-h2 {
-  font-size: 22px;
+/* 3. ANA MENÜ GRID  */
+.main-title {
+    font-size: 32px;
+    text-align: center;
+    margin: 40px 0;
+    color: #ff0000;
+    letter-spacing: 2px;
+    font-weight: 900;
 }
 
-/* =========================
-   BUTONLAR – EN KRİTİK
-========================= */
-button {
-  width: 100%;
-  padding: 20px;
-  margin-bottom: 12px;
-
-  font-size: 20px;
-  font-weight: 600;
-
-  border: none;
-  border-radius: 8px;
-
-  background-color: #1a1a1a;
-  color: #fff;
-
-  touch-action: manipulation; /* Çift dokunma gecikmesi yok */
+.mode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+    width: 100%;
 }
 
-button:active {
-  background-color: #333;
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ACİL BUTON */
-button.danger {
-  background-color: #c40000;
+.mode-grid .btn { height: 140px; } 
+
+.danger { background: var(--urgent); color: #fff; }
+.secondary { background: #333; color: #fff; }
+.info { background: #0056b3; color: #fff; }
+.warning { background: #ffcc00; color: #000; }
+.primary-action { background: #fff; color: #000; border: 2px solid #fff; margin-top: 20px; }
+
+.pulse { animation: pulse-red 2s infinite; }
+.btn:active { transform: scale(0.95); opacity: 0.9; }
+
+/* 4. SOS SEÇİM BUTONLARI VE MODLAR */
+.sos-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-button.danger:active {
-  background-color: #900000;
+.sos-btn {
+    width: 100%;
+    height: 100px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: 900;
+    border: none;
+    color: #fff;
+    cursor: pointer;
 }
 
-/* =========================
-   İHTİYAÇ SEÇİM GRID
-========================= */
-.need-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  margin-bottom: 20px;
+.extreme { background: #ff0000; border: 4px solid #fff; }
+.high { background: #ff6600; }
+.medium { background: #007bff; }
+.sos-btn.other { background: #444; color: #fff; border: 1px dashed #777; }
+
+.selected-status {
+    border: 3px solid #fff !important;
+    transform: scale(0.98);
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
 }
 
-.need-grid button {
-  font-size: 18px;
-  padding: 18px;
+/* 5. DİNAMİK ARKA PLAN MODLARI */
+body.mode-extreme { background-color: #000000 !important; }
+body.mode-high { background-color: #1a0000 !important; }
+body.mode-medium { background-color: #1a1400 !important; }
+body.mode-other { background-color: #0d1117 !important; }
+body.enkaz-mode { background-color: #000; }
+body.yardim-mode { background-color: #121212; color: #e0e0e0; }
+
+/* 6. YARDIMCI MODU: KARTLAR VE FİLTRELER */
+.filters {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 0;
 }
 
-/* =========================
-   METİN BİLGİ
-========================= */
-p {
-  text-align: center;
-  margin-top: 12px;
-  font-size: 16px;
+.filters button {
+    flex: 0 0 auto;
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
-.note {
-  font-size: 14px;
-  opacity: 0.8;
+.card {
+    background: var(--card-bg);
+    border-left: 6px solid #444;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
 }
 
-/* =========================
-   LİSTE (YARDIMCI MODU)
-========================= */
-ul {
-  list-style: none;
-  padding: 0;
+.urgent-card { border-left-color: var(--urgent); background: #200000; }
+.card.tip-ihtiyac { border-right: 4px solid #ff4444; }
+.card.tip-destek { border-right: 4px solid #44ff44; }
+
+.card h3 { margin: 0 0 10px 0; font-size: 18px; }
+.card p { font-size: 14px; color: #ccc; margin-bottom: 15px; }
+
+.task-divider { height: 1px; background: #333; margin: 25px 0; }
+
+/* 7. REHBER VE AFET YÖNETİMİ */
+.section-box {
+    background: #111;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #222;
 }
 
-li {
-  background-color: #111;
-  padding: 14px;
-  margin-bottom: 10px;
-  border-radius: 6px;
+.section-box h3 { font-size: 1rem; color: #ffcc00; margin-bottom: 10px; }
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  font-size: 16px;
+.location-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-li button {
-  width: auto;
-  padding: 10px 14px;
-  font-size: 14px;
+.loc-btn {
+    flex: 1;
+    padding: 12px 8px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.8rem;
 }
 
-/* =========================
-   ERİŞİLEBİLİRLİK
-========================= */
-button:focus {
-  outline: 3px solid #fff;
-  outline-offset: 2px;
+.news-section { background: #000; border: 1px solid #ff4444; border-radius: 10px; padding: 10px; }
+.news-feed { max-height: 200px; overflow-y: auto; }
+.news-item { border-bottom: 1px solid #333; padding: 8px 0; font-size: 0.9rem; }
+
+/* 8. NAVİGASYON VE GİRDİLER */
+.nav-back-btn {
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.back-btn-small {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    float: right;
+    cursor: pointer;
+}
+
+#sos-note {
+    width: 100%;
+    height: 80px;
+    background: #111;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+#sos-note:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+    justify-content: center;
+    margin-top: 40px;     
+    padding: 20px;
+    font-size: 14px;
+    color: #555;            
+    border-top: 1px solid #1a1a1a;
+    width: 100%;
+}
+/* 9. RESPONSIVE TASARIM */
+@media (max-width: 400px) {
+    .mode-grid .btn { height: 120px; font-size: 0.8rem; }
+    .main-title { font-size: 1.5rem; }
+    .loc-btn { font-size: 0.7rem; }
+}
+
+@media (min-width: 601px) {
+    .screen {
+        border-left: 1px solid #222;
+        border-right: 1px solid #222;
+        box-shadow: 0 0 50px rgba(255, 0, 0, 0.1);
+    }
+}
+
+img, .card, .section-box {
+    max-width: 100%;
+    height: auto;
 }
