@@ -42,12 +42,11 @@ Afet anlarında düşük ışık koşullarında gözü yormayan, pil tasarrufu s
 - **PWA Ready:** Manifest ve Service Worker uyumlu yapı.
 - **Responsive:** Mobile-first, Desktop-optimized container yapısı.
 
-## 📂 Dosya Yapısı
-
-```text
-├── audio/              # .mp3 formatında ilkyardım talimatları
-├── firstaid.html       # Bağımsız sesli rehber sayfası
-├── index.html          # Ana uygulama (PWA giriş kapısı)
-├── style.css           # Hiyerarşik ve optimize edilmiş CSS
-├── script.js           # Uygulama mantığı ve ekran yönetimi
-└── audio.js            # Ses motoru fonksiyonları
+## 📂 Dirlik (Root)
+├── 📂 audio/           # .mp3 formatında sesli ilkyardım talimatları
+├── 📄 index.html       # Ana uygulama (PWA giriş kapısı & SOS ekranı)
+├── 📄 firstaid.html    # Bağımsız sesli rehber & ilkyardım sayfası
+├── 🎨 style.css        # Hiyerarşik ve optimize edilmiş ana stil dosyası
+├── 🎨 firstaid.css     # Rehber sayfasına özel stil düzenlemeleri
+├── ⚙️ script.js        # Ekran yönetimi, harita ve uygulama mantığı
+└── ⚙️ audio.js         # Ses motoru ve oynatma fonksiyonları
