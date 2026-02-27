@@ -1,27 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>İlk Yardım</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hayati Bilgiler</title>
+   <link rel="stylesheet" href="firstaid.css">
+  </head>
+  <body>
+    <button class="back-btn" onclick="history.back()">⬅ Uygulamaya Dön</button>
 
-<h2>🩺 İlk Yardım Rehberi</h2>
-<p><strong>🩸 Kanama:</strong> Temiz bezle bastır, uzvu yukarı kaldır.</p>
-<button class="btn" onclick="playAudio('kanama')">
-  🔊 Dinle
-</button>
-<p><strong>🧱 Enkaz:</strong> Bağırma, enerji koru, ritmik ses çıkar.</p>
-<button class="btn" onclick="playAudio('enkaz')">
-  🔊 Dinle
-</button>
-<p><strong>🧠 Bilinç:</strong> Tepki yoksa 112 ara.</p>
-<button class="btn" onclick="playAudio('bilinc')">
-  🔊 Dinle
-</button>
+    <div class="guide-card danger-card">
+      <h2>🏗️ ENKAZ ALTINDAYSAN</h2>
+      <p>1. Enerjini koru. Gereksiz bağırma.</p>
+      <p>2. Borulara, duvarlara vurarak ses çıkar.</p>
+      <p>3. Ağzını ve burnunu bir giysiyle kapat (tozdan korun).</p>
+      <p>4. Dışarıdan ses gelince bağır.</p>
+      <button class="btn" onclick="playAudio('audio/bilinc.mp3')">🔊 Dinle</button>
+    </div>
 
-<script src="audio.js"></script>
-</body>
+    <div class="guide-card">
+      <h2>🩸 KANAMAYI DURDURMA</h2>
+      <p>1. Yaraya temiz bir bezle doğrudan baskı uygulayın.</p>
+      <p>2. Bez kanarsa, eskisini kaldırmadan üzerine yenisini ekleyin.</p>
+      <p>3. Yaralı bölgeyi kalp seviyesinden yukarı kaldırın.</p>
+      <button class="btn" onclick="playAudio('audio/kanama.mp3')">🔊 Dinle</button>
+    </div>
+
+    <div class="guide-card">
+      <h2>🌬️ TEMEL YAŞAM DESTEĞİ</h2>
+      <p>1. Bilinç kontrolü yapın (Omuzlarına dokunarak seslen).</p>
+      <p>2. Göğüs kafesi inip kalkıyor mu bak (10 sn).</p>
+      <p>3. Nefes yoksa ve eğitimliysen kalp masajına başla.</p>
+      <button class="btn" onclick="playAudio('audio/bilinc.mp3')">🔊 Dinle</button>
+    </div>
+    
+    <script src="audio.js"></script>
+  </body>
 </html>
