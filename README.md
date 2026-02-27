@@ -44,11 +44,12 @@ Afet anlarında düşük ışık koşullarında gözü yormayan, pil tasarrufu s
 
 ## 📂 Dosya Yapısı
 
-📂 Dirlik (Root)
-├── 📂 audio/           # .mp3 formatında sesli ilkyardım talimatları
-├── 📄 index.html       # Ana uygulama (PWA giriş kapısı & SOS ekranı)
-├── 📄 firstaid.html    # Bağımsız sesli rehber & ilkyardım sayfası
-├── 🎨 style.css        # Hiyerarşik ve optimize edilmiş ana stil dosyası
-├── 🎨 firstaid.css     # Rehber sayfasına özel stil düzenlemeleri
-├── ⚙️ script.js        # Ekran yönetimi, harita ve uygulama mantığı
-└── ⚙️ audio.js         # Ses motoru ve oynatma fonksiyonları
+```text
+Dirlik (Ana Dizin)
+├── 📁 audio/           # .mp3 formatında sesli ilkyardım talimatları
+├── 📄 index.html       # Ana uygulama & SOS giriş ekranı
+├── 📄 firstaid.html    # Bağımsız sesli rehber sayfası
+├── 🎨 style.css        # Ana uygulama stilleri
+├── 🎨 firstaid.css     # İlkyardım sayfası özel stilleri
+├── ⚙️ script.js        # Uygulama mantığı & ekran yönetimi
+└── ⚙️ audio.js         # Ses oynatma fonksiyonları
