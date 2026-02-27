@@ -1,0 +1,79 @@
+   body {
+        background: #000;
+        color: #fff;
+        font-family: sans-serif;
+        padding: 20px;
+      }
+      .guide-card {
+        background: #1a1a1a;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border-left: 5px solid #007bff;
+      }
+      .danger-card {
+        border-left-color: #ff0000;
+      }
+      h2 {
+        color: #ffcc00;
+        font-size: 1.2rem;
+      }
+      p {
+        font-size: 0.95rem;
+        line-height: 1.4;
+        color: #ddd;
+      }
+      .step {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #fff;
+      }
+      .back-btn {
+        background: #333;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      /* Ses Çalma Butonu Genel Tasarımı */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff; /* Güven veren mavi tonu */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.2s ease;
+    width: 100%; /* Mobilde tam genişlik */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Basma Efekti */
+.btn:active {
+    transform: scale(0.95);
+    background-color: #0056b3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover (Bilgisayar faresi için) */
+.btn:hover {
+    background-color: #0069d9;
+}
+
+/* İkon ve Metin Arası Boşluk */
+.btn span {
+    margin-left: 8px;
+}
+
+/* Kırmızı Alanlardaki Butonlar İçin (Opsiyonel) */
+.danger-card .btn {
+    background-color: #dc3545; /* Enkaz altı gibi yerlerde kırmızı buton */
+}
