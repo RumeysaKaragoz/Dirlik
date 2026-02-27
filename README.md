@@ -42,7 +42,9 @@ Afet anlarında düşük ışık koşullarında gözü yormayan, pil tasarrufu s
 - **PWA Ready:** Manifest ve Service Worker uyumlu yapı.
 - **Responsive:** Mobile-first, Desktop-optimized container yapısı.
 
-## 📂 Dirlik (Root)
+## 📂 Dosya Yapısı
+
+📂 Dirlik (Root)
 ├── 📂 audio/           # .mp3 formatında sesli ilkyardım talimatları
 ├── 📄 index.html       # Ana uygulama (PWA giriş kapısı & SOS ekranı)
 ├── 📄 firstaid.html    # Bağımsız sesli rehber & ilkyardım sayfası
