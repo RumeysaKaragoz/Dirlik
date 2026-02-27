@@ -2,81 +2,155 @@
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deprem Yardım Sistemi</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dirlik</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- 1️⃣ BAŞLANGIÇ / MOD SEÇİM -->
-    <section id="mode-select" class="screen active">
-      <h1>Deprem Yardım</h1>
+    <div id="offline-banner" class="hidden">
+      ⚠️ İnternet Yok: Önbellekteki veriler aktif.
+    </div>
 
-      <button class="btn danger" onclick="selectMode('requester')">
-        🆘 Yardım İstiyorum
-      </button>
+   <section id="mode-select" class="screen active">
+    <h1 class="main-title">Dirlik için,Birlik!</h1>
+    <div class="mode-grid">
+        <button class="btn danger pulse" onclick="showScreen('requester-mode')">🆘 YARDIM İSTİYORUM</button>
+        <button class="btn secondary" onclick="showScreen('helper-mode')">🤝 YARDIM Et!</button>
+        <button class="btn info" onclick="showScreen('guide-mode')">🛡️ AFET YÖNETİMİ</button>
+        <button class="btn warning" onclick="window.location.href='firstaid.html'">🩺 İLK YARDIM</button>
+    </div>
+      <footer class="footer">
+      <p>© 2026 Dirlik. All rights reserved.</p>
+    </footer>
+</section>
 
-      <button class="btn" onclick="selectMode('helper')">🤝 Yardımcıyım</button>
-      <button class="btn" onclick="location.href = 'firstaid.html'">
-        🩺 İlk Yardım
-      </button>
-      <p class="note">
-        Deprem anında en az veri kullanımı için tasarlanmıştır.
-      </p>
-    </section>
-
-    <!-- 2️⃣ YARDIM İSTEYEN MODU -->
     <section id="requester-mode" class="screen">
-      <h2>İhtiyacını Seç</h2>
-
-      <div class="need-grid">
-        <button onclick="selectNeed('medical')">🩸 Yaralıyım</button>
-        <button onclick="selectNeed('trapped')">🧱 Enkaz Altındayım</button>
-        <button onclick="selectNeed('shelter')">🏠 Barınma</button>
-        <button onclick="selectNeed('food')">🍞 Gıda / Su</button>
+      <div class="emergency-header">
+        <h2>DURUMUNUZU SEÇİN</h2>
+    <button class="nav-back-btn" onclick="showScreen('mode-select')">⬅ Ana Menüye Dön</button>
       </div>
-      <button class="btn danger" onclick="startVoiceCommand()">
-        🎙️ Sesle Yardım İste
+      <div class="sos-buttons">
+        <button
+          class="sos-btn extreme"
+          onclick="setSosStatus('Enkaz Altında', this)"
+        >
+          🏗️ ENKAZ ALTINDAYIM
+        </button>
+        <button class="sos-btn high" onclick="setSosStatus('Yaralı', this)">
+          🩸 YARALIYIM
+        </button>
+        <button
+          class="sos-btn medium"
+          onclick="setSosStatus('Gıda / Su', this)"
+        >
+          🍲 GIDA / SU LAZIM
+        </button>
+        <button class="sos-btn other" onclick="setSosStatus('Diğer', this)">
+          ❓ DİĞER İHTİYAÇ
+        </button>
+      </div>
+      <div class="input-group" id="note-container">
+        <label id="note-label">Ek Bilgi / Detaylar:</label>
+        <textarea
+          id="sos-note"
+          placeholder="Örn: İlaç (İnsülin), Isınma, Bebek Bezi vb."
+        ></textarea>
+      </div>
+      <button class="btn primary-action" onclick="sendSOSProcess()">
+        📡 SİNYALİ GÖNDER
       </button>
-
-      <p id="voice-status"></p>
-      <button class="btn" onclick="sendBluetoothSignal()">
-        📡 Bluetooth ile Yakındakilere Bildir
-      </button>
-      <button class="btn danger" onclick="sendHelpRequest()">
-        KONUM GÖNDER & YARDIM İSTE
-      </button>
-
-      <p id="requester-status"></p>
     </section>
 
-    <!-- 3️⃣ YARDIM BEKLEME EKRANI -->
+    <section id="helper-mode" class="screen">        
+        <h2>🤝 YARDIM Et!</h2>
+    <button class="nav-back-btn" onclick="showScreen('mode-select')">⬅ Ana Menüye Dön</button>
+      <header>
+        <div class="filters" id="dynamic-filters"></div>
+      </header>
+      <main id="app">
+        <div id="loader">Veriler yükleniyor...</div>
+        <div id="request-list"></div>
+      </main>
+      <div class="task-divider"></div>
+      <section id="my-tasks">
+        <h3>Üstlendiğim Görevler</h3>
+        <div id="saved-tasks"></div>
+      </section>
+    </section>
+
+    <section id="guide-mode" class="screen">
+      <div class="emergency-header">
+        <h2>🛡️ AFET YÖNETİM MERKEZİ</h2>
+    <button class="nav-back-btn" onclick="showScreen('mode-select')">⬅ Ana Menüye Dön</button>
+      </div>
+
+      <div class="section-box">
+        <h3>📍 Yakınımdaki Önemli Yerler</h3>
+        <div class="location-grid">
+          <button class="loc-btn" onclick="openMap('toplanma alanı')">
+            🏟️ Toplanma Alanı
+          </button>
+          <button class="loc-btn" onclick="openMap('eczane')">
+            💊 En Yakın Eczane
+          </button>
+          <button class="loc-btn" onclick="openMap('hastane')">
+            🏥 Sağlık Kuruluşu
+          </button>
+          <button class="loc-btn" onclick="openMap('afad')">
+            🏢 AFAD Merkezi
+          </button>
+        </div>
+      </div>
+
+      <div class="section-box news-section">
+        <h3>📰 Son Dakika (Canlı)</h3>
+        <div id="news-feed" class="news-feed">
+          <p>Haberler yükleniyor veya internet bekleniyor...</p>
+          <div class="news-item">
+            <small>27 Şubat 16:17</small>
+            <p>Kahramanmaraş Elbistan: 4.7 Büyüklüğünde deprem kaydedildi.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h3>Bilgi</h3>
+        <div class="guide-card">
+          Toplanma: E-devlet üzerinden önceden atanmış alanına bak.
+        </div>
+      </div>
+    </section>
+
     <section id="waiting-screen" class="screen">
-      <h2>Yardım Talebin Alındı</h2>
-      <p>Lütfen bulunduğun yerde kal.</p>
+      <div class="success-box">
+        <h2 class="pulse-text">Sinyal Yayında 📡</h2>
+        <p>
+          Konumunuz ekiplere iletildi. Telefonunuz periyodik olarak yüksek sesli
+          sinyal verecektir.
+        </p>
 
-      <button class="btn" onclick="markHelped()">✔ Yardım Aldım</button>
+        <div class="waiting-actions">
+          <button class="btn info" onclick="stopAudioSignal()">
+            🔇 Sesi Durdur
+          </button>
+          <br />
+          <button
+            class="btn success"
+            onclick="
+              markHelped();
+              stopAudioSignal();
+            "
+          >
+             YARDIM ALDIM
+          </button>
+        </div>
+      </div>
     </section>
-
-    <!-- 4️⃣ YARDIMCI MODU -->
-    <section id="helper-mode" class="screen">
-      <h2>Yakındaki Yardım Talepleri</h2>
-
-      <ul id="help-list">
-        <!-- JS ile doldurulacak -->
-        <li>
-          🩸 Yaralı – 120m
-          <button onclick="acceptHelp()">Gidiyorum</button>
-        </li>
-      </ul>
-
-      <button class="btn" onclick="refreshList()">🔄 Listeyi Yenile</button>
-    </section>
-
     <script src="script.js"></script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js");
-      }
-    </script>
+   
   </body>
 </html>
